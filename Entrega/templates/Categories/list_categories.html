@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Listado de Marcas
+{% endblock %}
+
+{% block content %}
+
+    <h1>Acá podés encontrar las marcas con las que trabajamos actualmente:</h1>
+
+    <div class="container-fluid">
+        <div class="row text-center">
+            {% for category in categories %}
+                <div class="col">
+                    <div class="container p-3 my-3 bg-primary text-black text-center">
+                        <h1><div id="accordion{{category.id}}">
+                            <div class="card">
+                            <div class="card-header" id="headingOne{{category.id}}">
+                                <h5 class="mb-0">
+                                    <div class="dropdown">
+                                        <button class="dropbtn"  type="button" data-toggle="collapse" data-target="#collapseOne{{category.id}}" aria-expanded="true" aria-controls="headingOne">
+                                        {{category.name}}</button>
+                                    </div>
+                                </h5>
+                            </div>
+                            <div id="collapseOne{{category.id}}" class="collapse hide" aria-labelledby="headingOne" data-parent="accordionExample{{category.id}}">
+                                <div class="card-body">
+                                    {% if category.name == 'Zanella' %}
+                                    <h1>El Comienzo</h1>
+                                    <h5>Zanella se establece como una sociedad de coparticipación en la rama metalúrgica. Comienza como fábrica de aberturas y se extiende a la fabricación de accesorios y repuesto para FIAT y PEUGEOT.
+                                        La primera motocicleta se produce, parte de sus componentes importados de Italia y el restante fabricado en la planta de Caseros.</h5>   
+                                    {% elif category.name == 'Yamaha' %}
+                                    <h2>La empresa</h2>
+                                    <h5><p>Yamaha Motor Argentina es una empresa transnacional consolidada en 1995 en el mercado argentino con el respaldo y desarrollo de todas las compañías del Grupo Yamaha en el mundo. La empresa comercializa sus productos al público a través de una red de 159 concesionarios oficiales de motos y 139 de marina y productos de fuerza; todos ellos capacitados para dar el mejor servicio a los usuarios.</p>
+                                        La línea de productos cuenta con Motocicletas de Calle, Enduro, Motocross, Deportivas, ON/OFF, Touring y Custom; Cuatriciclos Deportivos, Utilitarios y Side by Side; Motores fuera de borda de dos y cuatro tiempos; Motores Diesel internos; Waverunners de 2 y 4 tiempos; Productos de fuerza (generadores y bombas de agua) y lubricantes.</h5>   
+                                    {% elif category.name == 'Suzuki' %}
+                                    <h2>Un poco de historia</h2>
+                                    <h5><p>En 1909, Michio Suzuki abre Suzuki Loom Works en el pequeño pueblo costero de Hamamatsu, en la prefectura de Shizuoka, Japón. La nueva instalación fabrica telares para la enorme industria algodonera de Japón, y la intención de Michio es simple: Construir telares mejores y más ergonómicos que cualquier otro disponible actualmente.</p>
+                                        Luego, en 1952, Suzuki construye su primera bicicleta motorizada, la ‘Power Free’. Diseñada para ser económica y fácil de mantener, utiliza un motor de 36 cc y dos tiempos, sujeto al cuadro de una bicicleta convencional. El exclusivo sistema de engranajes de doble piñón de la Power Free permite a los ciclistas pedalear sin asistencia del motor, con asistencia del motor, o viajar completamente por la propia potencia del motor.</h5>
+                                    {% elif category.name == 'Bajaj' %}
+                                    <h2>Bajaj Motorcycles</h2>
+                                    <h5><p>Bajaj Auto Ltd (BAL) es uno de los fabricantes de motocicletas más importantes del mundo y el fabricante de motocarros más grande del mundo.</p>
+                                        <p>Bajo el liderazgo del Sr. Rahul Bajaj, Bajaj Auto Ltd ha establecido su experiencia en segmentos de vehículos utilitarios, para viajes diarios y deportivos.</p>
+                                        <p>La presencia de Bajaj Auto Ltd. es muy sólida en Asia, África y América Latina.</p>
+                                        <p>Bajaj Auto Limited ha estado creando hitos, a cada paso del camino.</p></h5>
+                                    {% else %}
+                                    <h2>Honda en Argentina</h2>
+                                    <h5><p>Honda sentó sus bases en la Argentina el 11 de agosto de 1978, fecha en la que quedó oficialmente creada Honda Motor de Argentina S.A., como subsidiaria de Honda Motor Company de Japón.</p>
+                                        <p>En sus comienzos, las actividades se basaban en la distribución y comercialización de autos, motos y productos de fuerza. En ese momento, los productos Honda fueron muy bien recibidos en el país, ya que se destacaban en el mercado local por su alta tecnología.</p>
+                                        <p>Durante 1982 y 1991 la importación cerró sus puertas en el país y la economía sufrió una fuerte caída. A pesar del contexto que presentaba Argentina en ese período, Honda conservó un representante propio para  brindar asistencia, servicio y repuestos a los clientes que habían elegido la marca.</p>
+                                    </h5>
+                                    {% endif %}
+                            </div>
+                            </div></h1>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if request.user.is_superuser %}
+    <div class="card text-center">
+        <div class="card-body">
+            <h3 class="card-title">Añadir nueva cateogria</h5>
+            <a href="/Categories/add_categories/" class="btn btn-primary">Añadir</a>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Listado de productos
+{% endblock %}
+
+{% for product in products %}
+                    
+                        {% if category.name in product.name %}
+                        
+                            {% if product.style == Offroad %}
+                            <div class="card container-fluid" style=" margin-bottom: 1cm;  width: 22rem; ">
+                                <img src="" class="card-img-top">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{product.name}}</h5>
+                                    <p class="card-text">Modelo: {{product.model}}</p>
+                                    <p> Precio: ${{product.price}} </p>
+                                    <p>Estilo: {{product.style}}</p>
+                                    {% if product.stock == True %}
+                                        <p>Actualmente hay stock</p>
+                                    {% else %}
+                                        <p>Actualmente, nos quedamos sin stock</p>
+                                    {% endif %}
+                                    <div class="accordion"  id="accordionExample{{product.id}}">
+                                        <div class="card" >
+                                            <div class="card-header"  id="headingOne">
+                                                <h6 class="mb-0" >
+                                                <button class="btn"  type="button" data-toggle="collapse" data-target="#collapseOne{{product.id}}" aria-expanded="true" aria-controls="headingOne">
+                                                    Comprar
+                                                </button>
+                                                </h6>
+                                            </div>
+                                            <div id="collapseOne{{product.id}}" class="collapse hide" aria-labelledby="headingOne" data-parent="accordionExample{{product.id}}">
+                                                <div class="card-body">
+                                                    <form>
+                                                        <div class="form-group">
+                                                        <label for="exampleInputEmail1">Ingrese su correo y lo contactaremos a la brevedad</label>
+                                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese email">
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Enviar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>    
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endif %}
+            {% endfor %}
+
+{% block content %}

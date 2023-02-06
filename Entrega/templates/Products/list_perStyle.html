@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Listado de productos
+{% endblock %}
+
+
+{% block content %}
+        {% if products %}
+        <h1>Actualmente contamos con los siguientes modelos: </h1>
+    <div class="container">
+        <div class="row">
+            {% for product in products %}
+                <div class="card container-fluid" style=" margin-bottom: 1cm;  width: 10cm; ">
+                                        <img src="/media/{{product.image}}" height="50%">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{product.name}}</h5>
+                                            <p class="card-text">Modelo: {{product.model}}</p>
+                                            <p> Precio: ${{product.price}} </p>
+                                            <p>Estilo: {{product.style}}</p>
+                                            {% if product.stock == True %}
+                                                <p>Actualmente hay stock</p>
+                                            {% else %}
+                                                <p>Actualmente, nos quedamos sin stock</p>
+                                            {% endif %}
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalComprar">
+                                                Comprar
+                                            </button>
+                                            <div class="modal fade" id="ModalComprar" tabindex="-1" aria-labelledby="ModalComprarLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="ModalComprarLabel">Consultar ofertas</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    ¿Desea que nos comuniquemos para ofrecerle nuestras ofertas sobre el modelo seleccionado?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <button type="button" class="btn btn-primary" data-bs-target="#ModalComprarToggle2" data-bs-toggle="modal">Aceptar</button>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="ModalComprarToggle2" aria-hidden="true" aria-labelledby="ModalComprarToggleLabel2" tabindex="-1">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="ModalComprarToggleLabel2">Modal 2</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Su consulta ha sido enviada. Nos comunicaremos a la brevedad. 
+                                                        ¡Muchas gracias por su consulta!
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    {% else %}
+        <div class="container" style="text-align: center;">
+            <img src="data:image/png;base64,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" alt="Error">
+            <h1>Actualmente no contamos con modelos de éste tipo.</h1>
+            <h3>Si desea, puede agregar modelos:</h3>
+        </div>
+    {% endif %}
+
+    {% if request.user.is_superuser %}
+    <div class="card text-center">
+        <div class="card-body">
+            <h3 class="card-title">Añadir nuevo producto</h5>
+            <a href="/Products/add_product/" class="btn btn-primary">Añadir</a>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-primary" style="background-color: red; border-color: red;" href="/Products/" role="button">Regresar  </a>
+    </div>
+{% endblock %}
+

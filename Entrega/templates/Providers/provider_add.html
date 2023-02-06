@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Creacion de proveedor
+{% endblock %}
+
+{% block content %}
+    <h1>Ingrese los datos del proveedor</h1>
+
+
+
+    {% if form %}
+
+        <form action="" method="POST">
+
+            {% csrf_token %}
+
+            <table>
+                {{form.as_table}}
+            </table>
+
+
+            <input type="submit" value="Añadir proveedor">
+        </form>
+    {% endif %}
+
+
+    {% if form_errors %}
+        <h2 style="color: red;" >Errores:</h2>
+        {{form_errors}}
+    {% endif %}
+
+
+    {% if message %}
+        <h2 style="color: green;" >{{message}}</h2>
+    {% endif %}
+
+    <div class="center">
+        <a href="/Providers/providers_list"  class="btn btn-primary btn-lg active center"  role="button" aria-pressed="true">Volver</a>
+    </div>
+
+
+{% endblock %}

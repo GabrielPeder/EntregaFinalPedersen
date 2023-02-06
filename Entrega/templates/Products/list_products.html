@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Listado de productos
+{% endblock %}
+
+
+{% block content %}
+    <h1>Actualmente contamos con los siguientes modelos: </h1>
+
+    <div class="container">
+            <div class="row">
+                {% for product in products %}
+                    <div class="card container-fluid" style=" margin-bottom: 1cm;  width: 22rem; ">
+                                            <img src="/media/{{product.image}}" class="card-img-top">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{product.name}}</h5>
+                                                <p class="card-text">Modelo: {{product.model}}</p>
+                                                <p> Precio: ${{product.price}} </p>
+                                                <p>Estilo: {{product.style}}</p>
+                                                
+                                                {% if product.stock == True %}
+                                                    <p>Actualmente hay stock</p>
+                                                {% else %}
+                                                    <p>Actualmente, nos quedamos sin stock</p>
+                                                {% endif %}
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalComprar">
+                                                    Comprar
+                                                </button>
+                                                <div class="modal fade" id="ModalComprar" tabindex="-1" aria-labelledby="ModalComprarLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="ModalComprarLabel">Consultar ofertas</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        ¿Desea que nos comuniquemos para ofrecerle nuestras ofertas sobre el modelo seleccionado?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                        <button type="button" class="btn btn-primary" data-bs-target="#ModalComprarToggle2" data-bs-toggle="modal">Aceptar</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="ModalComprarToggle2" aria-hidden="true" aria-labelledby="ModalComprarToggleLabel2" tabindex="-1">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="ModalComprarToggleLabel2">Modal 2</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Su consulta ha sido enviada. Nos comunicaremos a la brevedad. 
+                                                            ¡Muchas gracias por su consulta!
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        
+    {% if request.user.is_superuser %}
+    <div class="card text-center">
+        <div class="card-body">
+            <h3 class="card-title">Añadir nuevo producto</h5>
+            <a href="/Products/add_product/" class="btn btn-primary">Añadir</a>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
+
+
+
+
